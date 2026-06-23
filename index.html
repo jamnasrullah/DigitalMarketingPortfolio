@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nasrullah — Ad Campaign Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #08090A;
+      --white:   #F5F4F0;
+      --ink:     #12131A;
+      --gold:    #C8A96E;
+      --gold-lt: #E8D5A3;
+      --muted:   #6B6B72;
+      --card-bg: #111218;
+      --border:  rgba(200,169,110,0.18);
+      --ff-display: 'Fraunces', serif;
+      --ff-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ───────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 6vw;
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -.5px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: .7;
+      transition: opacity .2s, color .2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 9px 22px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--gold-lt); }
+
+    /* ── HERO ──────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 6vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-photo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      animation: fadeUp .8s .25s forwards;
+    }
+    .hero-photo-ring {
+      position: relative;
+      width: min(380px, 90%);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      padding: 6px;
+      background: conic-gradient(from 220deg, var(--gold), var(--gold-lt), transparent 60%, var(--gold));
+      animation: spinRing 14s linear infinite;
+    }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+    .hero-photo-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--black);
+      padding: 8px;
+      overflow: hidden;
+    }
+    .hero-photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      filter: saturate(1.03) contrast(1.03);
+    }
+    .hero-photo-badge {
+      position: absolute;
+      bottom: 6%;
+      right: 2%;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .04em;
+      padding: 9px 16px;
+      border-radius: 30px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: none;
+    }
+    .hero-photo-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #15803d;
+      box-shadow: 0 0 0 3px rgba(21,128,61,.25);
+    }
+    @media (max-width: 880px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .hero-photo-wrap { order: -1; margin-bottom: 12px; }
+      .hero-photo-ring { width: min(260px, 70%); }
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(200,169,110,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,169,110,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,169,110,.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { transform: scale(1);   opacity: .8; }
+      to   { transform: scale(1.15); opacity: 1; }
+    }
+    .hero-eyebrow {
+      font-size: .78rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp .7s .1s forwards;
+    }
+    .hero-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -.03em;
+      max-width: 620px;
+      opacity: 0;
+      animation: fadeUp .7s .2s forwards;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--gold);
+      display: block;
+    }
+    .hero-sub {
+      margin-top: 28px;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(245,244,240,.6);
+      max-width: 520px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp .7s .35s forwards;
+    }
+    .hero-actions {
+      margin-top: 44px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s .5s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-weight: 500;
+      font-size: .88rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      margin-top: 80px;
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s .65s forwards;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION COMMON ────────────────────────────────────────────── */
+    section { padding: 100px 6vw; }
+    .section-eyebrow {
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: rgba(245,244,240,.55);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ── SERVICES ──────────────────────────────────────────────────── */
+    #services { background: #0C0D10; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      background: #0C0D10;
+      padding: 40px 36px;
+      transition: background .25s;
+      position: relative;
+    }
+    .service-card:hover { background: var(--card-bg); }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .service-title {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+    .service-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .service-tag {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 1px;
+    }
+
+    /* ── CAMPAIGNS (PORTFOLIO) ─────────────────────────────────────── */
+    #campaigns {}
+    .filter-bar {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+    .campaigns-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    .campaign-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+    }
+    .campaign-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(200,169,110,.12);
+    }
+    .campaign-card.col-8 { grid-column: span 8; }
+    .campaign-card.col-4 { grid-column: span 4; }
+    .campaign-card.col-6 { grid-column: span 6; }
+    .campaign-visual {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .campaign-visual::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,9,10,.9) 0%, transparent 50%);
+    }
+    .campaign-visual .vis-label {
+      position: absolute;
+      bottom: 14px; left: 18px;
+      z-index: 2;
+      font-family: var(--ff-display);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 4px 10px;
+    }
+
+    /* campaign color themes */
+    .vis-1 { background: linear-gradient(135deg, #1a0a2e 0%, #6b21a8 50%, #c026d3 100%); }
+    .vis-2 { background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 50%, #0ea5e9 100%); }
+    .vis-3 { background: linear-gradient(135deg, #0a2010 0%, #15803d 60%, #4ade80 100%); }
+    .vis-4 { background: linear-gradient(135deg, #1a0a0a 0%, #991b1b 60%, #f97316 100%); }
+    .vis-5 { background: linear-gradient(135deg, #0a0a1a 0%, #1e1b4b 50%, #7c3aed 100%); }
+    .vis-6 { background: linear-gradient(135deg, #0a1a1a 0%, #134e4a 60%, #06b6d4 100%); }
+
+    .vis-icon {
+      font-size: clamp(2rem, 5vw, 4rem);
+      z-index: 1;
+    }
+
+    .campaign-body { padding: 22px 24px 26px; }
+    .campaign-client {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .campaign-name {
+      font-family: var(--ff-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .campaign-desc {
+      font-size: .87rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .campaign-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(200,169,110,.08);
+      color: var(--gold-lt);
+      border: 1px solid rgba(200,169,110,.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .campaign-result {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 24px;
+    }
+    .result-num {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .result-label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-top: 1px;
+    }
+
+    /* ── CLIENTS ───────────────────────────────────────────────────── */
+    #clients {
+      background: #0C0D10;
+      padding: 60px 6vw;
+    }
+    .clients-eyebrow {
+      text-align: center;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+    .clients-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .client-logo {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: rgba(245,244,240,.25);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .client-logo:hover { color: rgba(245,244,240,.55); }
+
+    /* ── PROCESS ───────────────────────────────────────────────────── */
+    #process {}
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .process-step {
+      padding: 36px 32px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--ff-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(200,169,110,.1);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .step-title {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── TESTIMONIALS ──────────────────────────────────────────────── */
+    #testimonials { background: #0C0D10; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .testi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px;
+      transition: border-color .25s;
+    }
+    .testi-card:hover { border-color: rgba(200,169,110,.4); }
+    .testi-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .testi-text {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: rgba(245,244,240,.8);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testi-author {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .testi-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(200,169,110,.15);
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+    }
+    .testi-name {
+      font-weight: 600;
+      font-size: .92rem;
+    }
+    .testi-company {
+      font-size: .78rem;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    /* ── CONTACT ───────────────────────────────────────────────────── */
+    #contact {}
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .contact-info-title span { color: var(--gold); }
+    .contact-info-desc {
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .contact-icon {
+      width: 42px; height: 42px;
+      border-radius: 2px;
+      background: rgba(200,169,110,.1);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-detail-text { font-size: .9rem; color: rgba(245,244,240,.75); }
+    .contact-detail-label { font-size: .72rem; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px; }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-textarea, .form-select {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: .9rem;
+      padding: 12px 16px;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus { border-color: var(--gold); }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: rgba(107,107,114,.6); }
+    .form-submit {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--ff-body);
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    /* ── FOOTER ────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .footer-text {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: .8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── SCROLL REVEAL ─────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .campaign-card.col-8,
+      .campaign-card.col-4,
+      .campaign-card.col-6 { grid-column: span 12; }
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 5vw; }
+      section { padding: 70px 5vw; }
+      .campaigns-grid { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">NR.</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#campaigns">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#testimonials">Clients</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-layout">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Marketing &amp; Ad Campaign Portfolio</p>
+        <h1 class="hero-headline">
+          Campaigns That<br/>
+          <em>Convert &amp; Captivate</em>
+        </h1>
+        <p class="hero-sub">
+          I craft performance-driven ad campaigns for international brands — from concept to conversion, across digital, social, and paid media.
+        </p>
+        <div class="hero-actions">
+          <a href="#campaigns" class="btn-primary">View Campaigns →</a>
+          <a href="#contact" class="btn-ghost">Let's Collaborate</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">40+</div>
+            <div class="stat-label">Campaigns Delivered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12</div>
+            <div class="stat-label">International Clients</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3.8×</div>
+            <div class="stat-label">Avg. ROAS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Countries Reached</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-ring">
+          <div class="hero-photo-inner">
+            <img src="profile.jpeg" alt="Nasrullah — Ad Campaign Strategist"/>
+          </div>
+        </div>
+        <div class="hero-photo-badge"><span class="dot"></span> Open to Work</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS TICKER -->
+  <div id="clients">
+    <p class="clients-eyebrow">Trusted by brands across the globe</p>
+    <div class="clients-row">
+      <span class="client-logo">NovaTech</span>
+      <span class="client-logo">LuxeHaven</span>
+      <span class="client-logo">PulseFit</span>
+      <span class="client-logo">UrbanEdge</span>
+      <span class="client-logo">AquaVida</span>
+      <span class="client-logo">TerraLeaf</span>
+      <span class="client-logo">Verixa</span>
+      <span class="client-logo">MiloFoods</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-eyebrow reveal">What I Do</p>
+    <h2 class="section-title reveal">End-to-End Campaign<br/>Strategy &amp; Execution</h2>
+    <p class="section-sub reveal">From positioning to paid ads, every service is built to drive measurable results for your brand.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">🎯</span>
+        <div class="service-title">Paid Media Campaigns</div>
+        <div class="service-desc">Google Ads, Meta, TikTok &amp; LinkedIn campaigns optimised for ROAS, CTR, and conversion — tailored to your audience globally.</div>
+        <span class="service-tag">Performance</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📱</span>
+        <div class="service-title">Social Media Strategy</div>
+        <div class="service-desc">Full-funnel social media ad strategies across Instagram, Facebook, TikTok and Snapchat for brand awareness to purchase.</div>
+        <span class="service-tag">Social</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✍️</span>
+        <div class="service-title">Ad Copywriting &amp; Creative</div>
+        <div class="service-desc">High-converting ad copy, headlines, and visual briefs designed to stop the scroll and drive action in any market.</div>
+        <span class="service-tag">Creative</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <div class="service-title">Analytics &amp; Reporting</div>
+        <div class="service-desc">In-depth campaign analytics, A/B test insights, and clear reporting dashboards so you always know what's working.</div>
+        <span class="service-tag">Data</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌍</span>
+        <div class="service-title">International Market Entry</div>
+        <div class="service-desc">Localised ad strategies for entering new markets — culturally adapted creative and targeting for US, UK, UAE, and more.</div>
+        <span class="service-tag">Global</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔁</span>
+        <div class="service-title">Retargeting &amp; Funnels</div>
+        <div class="service-desc">Pixel-perfect retargeting funnels that bring back lost visitors and turn warm audiences into paying customers.</div>
+        <span class="service-tag">Conversion</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAIGNS / PORTFOLIO -->
+  <section id="campaigns" style="background:#0C0D10;">
+    <p class="section-eyebrow reveal">Portfolio</p>
+    <h2 class="section-title reveal">Selected Campaigns</h2>
+    <p class="section-sub reveal">Real results for real brands. Each campaign is built around a core insight and measured rigorously.</p>
+
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" onclick="filterCampaigns('all', this)">All</button>
+      <button class="filter-btn" onclick="filterCampaigns('social', this)">Social Media</button>
+      <button class="filter-btn" onclick="filterCampaigns('search', this)">Search &amp; PPC</button>
+      <button class="filter-btn" onclick="filterCampaigns('brand', this)">Brand</button>
+      <button class="filter-btn" onclick="filterCampaigns('ecom', this)">E-Commerce</button>
+    </div>
+
+    <div class="campaigns-grid" id="campaignsGrid">
+
+      <div class="campaign-card col-8" data-cat="social">
+        <div class="campaign-visual vis-1">
+          <span class="vis-icon">🚀</span>
+          <span class="vis-label">Meta Ads</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">NovaTech — UAE / Saudi Arabia</div>
+          <div class="campaign-name">Launch Campaign: "Future Is Now"</div>
+          <div class="campaign-desc">Full-funnel Meta campaign for a B2C tech product launch targeting UAE &amp; KSA — awareness to purchase in 30 days.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">Meta Ads</span>
+            <span class="meta-pill">Video Creative</span>
+            <span class="meta-pill">Arabic Copy</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">4.2×</div><div class="result-label">ROAS</div></div>
+            <div><div class="result-num">2.1M</div><div class="result-label">Reach</div></div>
+            <div><div class="result-num">–38%</div><div class="result-label">CPA</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card col-4" data-cat="ecom">
+        <div class="campaign-visual vis-2">
+          <span class="vis-icon">🛍️</span>
+          <span class="vis-label">E-Commerce</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">LuxeHaven — UK</div>
+          <div class="campaign-name">Black Friday Email &amp; Retargeting</div>
+          <div class="campaign-desc">High-urgency retargeting + email sequence for a UK luxury fashion brand during Black Friday.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">Retargeting</span>
+            <span class="meta-pill">Email</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">£94K</div><div class="result-label">Revenue</div></div>
+            <div><div class="result-num">6.8×</div><div class="result-label">ROAS</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card col-4" data-cat="brand">
+        <div class="campaign-visual vis-3">
+          <span class="vis-icon">🌿</span>
+          <span class="vis-label">Brand</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">TerraLeaf — USA</div>
+          <div class="campaign-name">Brand Awareness — Organic Growth</div>
+          <div class="campaign-desc">Instagram + TikTok organic + paid hybrid for a US sustainable lifestyle brand entering new demographics.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">TikTok</span>
+            <span class="meta-pill">Instagram</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">+220%</div><div class="result-label">Followers</div></div>
+            <div><div class="result-num">18%</div><div class="result-label">Eng. Rate</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card col-8" data-cat="search">
+        <div class="campaign-visual vis-4">
+          <span class="vis-icon">🔍</span>
+          <span class="vis-label">Google Ads</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">Verixa SaaS — USA / Canada</div>
+          <div class="campaign-name">Google Search &amp; Display — Lead Generation</div>
+          <div class="campaign-desc">B2B SaaS lead gen campaign via Google Search, Display &amp; YouTube — targeting decision-makers in North America.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">Google Search</span>
+            <span class="meta-pill">Display</span>
+            <span class="meta-pill">YouTube</span>
+            <span class="meta-pill">B2B</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">340</div><div class="result-label">Qualified Leads</div></div>
+            <div><div class="result-num">$18</div><div class="result-label">CPL</div></div>
+            <div><div class="result-num">–52%</div><div class="result-label">vs. Prev. Agency</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card col-6" data-cat="social">
+        <div class="campaign-visual vis-5">
+          <span class="vis-icon">💪</span>
+          <span class="vis-label">TikTok Ads</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">PulseFit — Australia</div>
+          <div class="campaign-name">TikTok UGC Performance Campaign</div>
+          <div class="campaign-desc">UGC-style TikTok creative strategy + paid amplification for an Australian fitness app targeting Gen Z.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">TikTok Ads</span>
+            <span class="meta-pill">UGC Creative</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">1.4M</div><div class="result-label">Video Views</div></div>
+            <div><div class="result-num">3.1×</div><div class="result-label">ROAS</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card col-6" data-cat="ecom">
+        <div class="campaign-visual vis-6">
+          <span class="vis-icon">🌊</span>
+          <span class="vis-label">Multi-Channel</span>
+        </div>
+        <div class="campaign-body">
+          <div class="campaign-client">AquaVida — Germany / Netherlands</div>
+          <div class="campaign-name">European E-Commerce Scale-Up</div>
+          <div class="campaign-desc">Multi-channel paid media strategy for scaling a DTC water brand across DACH and Benelux regions.</div>
+          <div class="campaign-meta">
+            <span class="meta-pill">Meta</span>
+            <span class="meta-pill">Google</span>
+            <span class="meta-pill">Localized</span>
+          </div>
+          <div class="campaign-result">
+            <div><div class="result-num">€210K</div><div class="result-label">Monthly Rev.</div></div>
+            <div><div class="result-num">5.2×</div><div class="result-label">ROAS</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <p class="section-eyebrow reveal">How I Work</p>
+    <h2 class="section-title reveal">The Campaign Process</h2>
+    <p class="section-sub reveal">A structured approach that eliminates guesswork and maximises every dollar of ad spend.</p>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery &amp; Research</div>
+        <div class="step-desc">Deep-dive into your brand, audience, competitors, and market. No assumptions — only data and insight.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Strategy &amp; Positioning</div>
+        <div class="step-desc">Build a campaign strategy with clear targeting, messaging hierarchy, and KPIs before a single ad is written.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Creative &amp; Copy</div>
+        <div class="step-desc">Craft scroll-stopping ad creative and copy — tested across multiple variations to find what converts.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Launch &amp; Optimise</div>
+        <div class="step-desc">Live campaign monitoring with rapid iteration — scaling winners and cutting losers with weekly reporting.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <p class="section-eyebrow reveal">Client Feedback</p>
+    <h2 class="section-title reveal">What Clients Say</h2>
+    <div class="testimonials-grid reveal">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Nasrullah completely transformed our paid media performance. Our ROAS went from 1.8× to 4.2× in the first month. He understood our Dubai market better than our previous agency ever did."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨‍💼</div>
+          <div>
+            <div class="testi-name">Ahmed Al-Rashid</div>
+            <div class="testi-company">NovaTech — UAE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Black Friday campaign he ran for us was phenomenal — £94K in revenue from a £12K budget. His retargeting strategy was incredibly precise. Already booked for next year."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div>
+            <div class="testi-name">Priya Mehta</div>
+            <div class="testi-company">LuxeHaven — London, UK</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Clear strategy, fast execution, and transparent reporting. He cut our CPL by over 50% versus our previous setup. Exactly the kind of partner a SaaS startup needs."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑‍💻</div>
+          <div>
+            <div class="testi-name">Jason Kowalski</div>
+            <div class="testi-company">Verixa — San Francisco, USA</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background:#0C0D10;">
+    <div class="contact-layout">
+      <div class="reveal">
+        <p class="section-eyebrow">Get In Touch</p>
+        <h2 class="contact-info-title">Ready to Launch<br/><span>Your Next Campaign?</span></h2>
+        <p class="contact-info-desc">Tell me about your project and I'll get back to you within 24 hours with a tailored proposal.</p>
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-text">jamnasrullah50@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-detail-label">Phone / WhatsApp</div>
+            <div class="contact-detail-text">+92 305 3594207</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🌍</div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-text">Lahore, Pakistan — Available Globally</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" placeholder="John Smith"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input type="text" class="form-input" placeholder="Acme Inc."/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="john@company.com"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Campaign Type</label>
+            <select class="form-select form-input">
+              <option value="">Select a service…</option>
+              <option>Paid Media (Meta / Google / TikTok)</option>
+              <option>Social Media Strategy</option>
+              <option>Brand Campaign</option>
+              <option>E-Commerce Ads</option>
+              <option>International Market Entry</option>
+              <option>Full Campaign Strategy</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Monthly Budget</label>
+            <select class="form-select form-input">
+              <option value="">Select range…</option>
+              <option>Under $1,000</option>
+              <option>$1,000 – $5,000</option>
+              <option>$5,000 – $20,000</option>
+              <option>$20,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tell Me About Your Project</label>
+            <textarea class="form-textarea" placeholder="Describe your goals, target market, and timeline…"></textarea>
+          </div>
+          <button class="form-submit" onclick="handleSubmit()">Send Project Brief →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#home" class="footer-logo">NR.</a>
+    <span class="footer-text">© 2025 Nasrullah — Ad Campaign Strategist</span>
+    <div class="footer-links">
+      <a href="mailto:jamnasrullah50@gmail.com">Email</a>
+      <a href="https://wa.me/923053594207" target="_blank">WhatsApp</a>
+      <a href="#campaigns">Work</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Campaign filter
+    function filterCampaigns(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.campaign-card').forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.style.display = match ? '' : 'none';
+      });
+    }
+
+    // Form submit
+    function handleSubmit() {
+      const btn = document.querySelector('.form-submit');
+      btn.textContent = '✓ Sent! I\'ll be in touch within 24h';
+      btn.style.background = '#15803d';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+    }
+
+    // Smooth active nav
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.borderBottomColor = window.scrollY > 50
+        ? 'rgba(200,169,110,0.25)'
+        : 'rgba(200,169,110,0.18)';
+    });
+  </script>
+</body>
+</html>
